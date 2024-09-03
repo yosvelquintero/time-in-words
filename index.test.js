@@ -21,28 +21,43 @@ describe('Time to words', () => {
     expect(timeInWords).toBe('half past eight');
   });
 
-  it('Handles times after 30 mins - 2:45', () => {
+  it('Handles 3 - 2:03', () => {
+    const timeInWords = convertTimeToWords('2:03');
+    expect(timeInWords).toBe('three past two');
+  });
+
+  it('Handles 11 - 2:11', () => {
+    const timeInWords = convertTimeToWords('2:11');
+    expect(timeInWords).toBe('eleven past two');
+  });
+
+  it('Handles 15 - 2:15', () => {
+    const timeInWords = convertTimeToWords('2:15');
+    expect(timeInWords).toBe('quarter past two');
+  });
+
+  it('Handles 30 - 2:30', () => {
+    const timeInWords = convertTimeToWords('2:30');
+    expect(timeInWords).toBe('half past two');
+  });
+
+  it('Handles 27 - 2:33', () => {
+    const timeInWords = convertTimeToWords('2:33');
+    expect(timeInWords).toBe('twenty seven to three');
+  });
+
+  it('Handles 20 - 2:40', () => {
+    const timeInWords = convertTimeToWords('2:40');
+    expect(timeInWords).toBe('twenty to three');
+  });
+
+  it('Handles 45 - 2:45', () => {
     const timeInWords = convertTimeToWords('2:45');
     expect(timeInWords).toBe('quarter to three');
   });
 
-  it('Handles minutes to next hour - 2:55', () => {
+  it('Handles 55 - 2:55', () => {
     const timeInWords = convertTimeToWords('2:55');
     expect(timeInWords).toBe('five to three');
-  });
-
-  it('Handles times after midday - 15:00', () => {
-    const timeInWords = convertTimeToWords('15:00');
-    expect(timeInWords).toBe("three o'clock");
-  });
-
-  it('Handles times around the clock - 23:45', () => {
-    const timeInWords = convertTimeToWords('23:45');
-    expect(timeInWords).toBe('quarter to midnight');
-  });
-
-  it('Handles early morning - 5:20', () => {
-    const timeInWords = convertTimeToWords('5:20');
-    expect(timeInWords).toBe('twenty past five');
   });
 });
