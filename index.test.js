@@ -11,6 +11,11 @@ describe('Time to words', () => {
     expect(timeInWords).toBe('midday');
   });
 
+  it('Handles exact hours', () => {
+    const timeInWords = convertTimeToWords('2:00');
+    expect(timeInWords).toBe("two o'clock");
+  });
+
   it('Handles 30 - 8:30', () => {
     const timeInWords = convertTimeToWords('8:30');
     expect(timeInWords).toBe('half past eight');
