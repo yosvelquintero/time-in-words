@@ -51,21 +51,38 @@ function convertTimeToWords(time) {
     'half',
   ];
 
-  if (hours === 0 && minutes === 0) return 'midnight';
-  if (hours === 12 && minutes === 0) return 'midday';
+  if (hours === 0 && minutes === 0) {
+    return 'midnight';
+  }
+  if (hours === 12 && minutes === 0) {
+    return 'midday';
+  }
 
   const hourWord = hours > 12 ? numbersToWords[hours - 12] : numbersToWords[hours];
   const nextHourWord = hours + 1 > 12 ? numbersToWords[hours + 1 - 12] : numbersToWords[hours + 1];
 
-  if (minutes === 0) return `${hourWord} o'clock`;
+  if (minutes === 0) {
+    return `${hourWord} o'clock`;
+  }
 
+  // The minutes past the hour
   if (minutes <= 30) {
-    if (minutes === 15) return `quarter past ${hourWord}`;
-    if (minutes === 30) return `half past ${hourWord}`;
+    if (minutes === 15) {
+      return `quarter past ${hourWord}`;
+    }
+    if (minutes === 30) {
+      return `half past ${hourWord}`;
+    }
+
     return `${minuteWords[minutes]} past ${hourWord}`;
   }
+
+  // The minutes to the next hour
   const remainingMinutes = 60 - minutes;
-  if (remainingMinutes === 15) return `quarter to ${nextHourWord}`;
+  if (remainingMinutes === 15) {
+    return `quarter to ${nextHourWord}`;
+  }
+
   return `${minuteWords[remainingMinutes]} to ${nextHourWord}`;
 }
 
