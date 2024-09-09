@@ -11,9 +11,19 @@ describe('Time to words', () => {
     expect(timeInWords).toBe('midday');
   });
 
-  it('Handles exact hours', () => {
+  it('Handles exact hours 1', () => {
+    const timeInWords = convertTimeToWords('1:00');
+    expect(timeInWords).toBe("one o'clock");
+  });
+
+  it('Handles exact hours 2', () => {
     const timeInWords = convertTimeToWords('2:00');
     expect(timeInWords).toBe("two o'clock");
+  });
+
+  it('Handles exact hours 10', () => {
+    const timeInWords = convertTimeToWords('10:00');
+    expect(timeInWords).toBe("ten o'clock");
   });
 
   it('Handles 30 - 8:30', () => {
@@ -59,5 +69,10 @@ describe('Time to words', () => {
   it('Handles 55 - 2:55', () => {
     const timeInWords = convertTimeToWords('2:55');
     expect(timeInWords).toBe('five to three');
+  });
+
+  it('Handles 12 - 2:59', () => {
+    const timeInWords = convertTimeToWords('2:59');
+    expect(timeInWords).toBe('one to three');
   });
 });
