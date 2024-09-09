@@ -1,9 +1,7 @@
 // expecting time to be a string in the format like '8:15' or '12:30'
 function convertTimeToWords(time) {
-  const [hour, minute] = time.split(':').map((str) => +str);
-  const minutesToNextHour = 60 - minute;
-  const nextHour = (hour + 1) % 24;
-  const hoursToWords = [
+  const [hours, minutes] = time.split(':').map(Number);
+  const numbersToWords = [
     'midnight',
     'one',
     'two',
@@ -16,21 +14,11 @@ function convertTimeToWords(time) {
     'nine',
     'ten',
     'eleven',
-    'midday',
-    'one',
-    'two',
-    'three',
-    'four',
-    'five',
-    'six',
-    'seven',
-    'eight',
-    'nine',
-    'ten',
-    'eleven',
+    'twelve',
   ];
-  const minutesToWords = [
-    '',
+
+  const minuteWords = [
+    "o'clock",
     'one',
     'two',
     'three',
@@ -63,35 +51,22 @@ function convertTimeToWords(time) {
     'half',
   ];
 
-  if (time === '0:00') {
-    return 'midnight';
+  if (hours === 0 && minutes === 0) return 'midnight';
+  if (hours === 12 && minutes === 0) return 'midday';
+
+  const hourWord = hours > 12 ? numbersToWords[hours - 12] : numbersToWords[hours];
+  const nextHourWord = hours + 1 > 12 ? numbersToWords[hours + 1 - 12] : numbersToWords[hours + 1];
+
+  if (minutes === 0) return `${hourWord} o'clock`;
+
+  if (minutes <= 30) {
+    if (minutes === 15) return `quarter past ${hourWord}`;
+    if (minutes === 30) return `half past ${hourWord}`;
+    return `${minuteWords[minutes]} past ${hourWord}`;
   }
-
-  if (time === '12:00') {
-    return 'midday';
-  }
-
-  if (minute === 0) {
-    return `${hoursToWords[hour]} o'clock`;
-  }
-
-  if (minute <= 30) {
-    if (minute === 15) {
-      return `quarter past ${hoursToWords[hour]}`;
-    }
-
-    if (minute === 30) {
-      return `half past ${hoursToWords[hour]}`;
-    }
-
-    return `${minutesToWords[minute]} past ${hoursToWords[hour]}`;
-  }
-
-  if (minutesToNextHour === 15) {
-    return `quarter to ${hoursToWords[nextHour]}`;
-  }
-
-  return `${minutesToWords[minutesToNextHour]} to ${hoursToWords[nextHour]}`;
+  const remainingMinutes = 60 - minutes;
+  if (remainingMinutes === 15) return `quarter to ${nextHourWord}`;
+  return `${minuteWords[remainingMinutes]} to ${nextHourWord}`;
 }
 
 module.exports = { convertTimeToWords };
